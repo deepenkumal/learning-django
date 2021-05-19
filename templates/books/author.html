@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Home pages {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="text-center mt-5 ">Books
+    <p><strong>Author Name:</strong>{{author}}</p>
+    </div>
+
+    <div class="row mt-2">
+        {% for book in book_list %}
+        <div class="col-md-3 col-sm-12 mt-5">
+            <img class="w-100" src="{{book.image}}" alt="">
+            <strong>Title</strong>
+            <p>{{book.title}}
+            <p>
+            <p><strong>Price </strong>{{book.price}}</p>
+            <button class="btn btn-info"><a class="text-white"
+                    href="{% url 'books:book_detail' book.id%}">View</a></button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

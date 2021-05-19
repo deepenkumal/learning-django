@@ -12,8 +12,11 @@
                 <h5>{{book.title}}</h5>
 
                 <strong>Author</strong>
-                <p>{{book.author}}</p>
-
+                <p>
+                {% for author in authors %}
+                <a href="{% url 'books:author' author %}">{{author}}</a>,
+                {% endfor %}
+                </p>
                 <strong>Price</strong>
                 <p>{{book.price}}</p>
 
