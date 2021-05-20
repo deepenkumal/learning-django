@@ -8,4 +8,5 @@ urlpatterns = [
 
     path('book_review/<str:pk>/',views.book_review , name='book_review'),
     path('author/<str:author>/',views.author , name='author'),
+    path('search_book/',views.search_book, name='search_book'),
 ]

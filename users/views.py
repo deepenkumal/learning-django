@@ -13,3 +13,6 @@ class  SignupView(generic.CreateView):
     
     success_url = reverse_lazy('login')
 
+class ProfileView(generic.TemplateView):
+    template_name = 'users/profile.html'
+

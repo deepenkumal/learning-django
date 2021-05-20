@@ -40,3 +40,12 @@ def author(request,author):
     books = Book.objects.filter(author__name = author)
     print(books)
     return render(request,'books/author.html',{'book_list':books, 'author':author})
+
+##search code
+
+def search_book(request):
+    search_books =request.GET.get('search')
+    print(search_books)
+    if search_books != '' and search_books is not None:
+        books = Book.objects.filter(title__icontains = search_books)
+    return render(request,'books/index.html',{'book_list':books})
