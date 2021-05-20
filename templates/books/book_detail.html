@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row mt-3">
         <div class="col-md-4">
-            <img class="w-100" src="{{book.image}}" alt="{{book.title}}">
+            <img class="w-100" src="{{book.book_image.url}}" alt="{{book.title}}">
         </div>
         <div class="col-md-8">
             <div>
@@ -42,10 +42,11 @@
                 </div>
                 {% endif %}
                 {% if request.user.is_authenticated %}
-                <form action="{% url 'books:book_review' book.id%}" method="POST">
+                <form action="{% url 'books:book_review' book.id%}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <textarea class="w-100" name="review" id="" cols="30" rows="5"
                         placeholder="write your review"></textarea>
+                    
                     <button class="btn btn-primary float-right" type="submit"><a class="text-white" href="?next={{request.path}}">Post</a></button>
                 </form>
                 {% else %}

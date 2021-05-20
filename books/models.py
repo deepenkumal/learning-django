@@ -18,6 +18,7 @@ class Book(models.Model):
     author = models.ManyToManyField(Author)
     price = models.FloatField(verbose_name='Book Price')
     image = models.CharField(verbose_name='Book Image',max_length=256 ,null=True)
+    book_image = models.ImageField(upload_to='Book/images', null= True)
     description = models.CharField(max_length=256)
     long_description = models.TextField()
 

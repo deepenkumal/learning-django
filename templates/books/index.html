@@ -6,7 +6,7 @@
     <div class="row mt-2">
         {% for book in book_list %}
         <div class="col-md-3 col-sm-12 mt-5">
-            <img class="w-100" src="{{book.image}}" alt="">
+            <img class="w-100" src="{{book.book_image.url}}" alt="">
             <strong>Title</strong>
             <p>{{book.title}}
             <p>
