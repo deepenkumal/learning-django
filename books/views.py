@@ -3,6 +3,8 @@ from .models import Book, Review, Author
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views import generic
+from . forms import ReviewForm
+from django.core.files.storage import FileSystemStorage
 
 
 
@@ -20,6 +22,7 @@ class BookDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context['reviews'] = context['book'].review_set.order_by('-review_date')
         context['authors'] = context['book'].author.all()
+        context['form'] = ReviewForm()
         return context
 
     #bydefault looks for book_detail.html
@@ -28,12 +31,26 @@ class BookDetailView(generic.DetailView):
 
 @login_required()
 def book_review(request,pk):
-    book = Book.objects.get(id= pk)
-    review = request.POST.get('review')
-    if review != '' and review is not None:
-        review = book.review_set.create(review_text= review, userprofile = request.user.userprofile)
+    if request.method == 'POST':
+        new_review = Review(book_id=pk,userprofile=request.user.userprofile)
+        form = ReviewForm(request.POST,request.FILES,instance=new_review)
+        if form.is_valid():
+            form.save()
+
+    return redirect(f'/book/{pk}/detail')
     
-    return redirect('books:index')
+
+
+    # book = Book.objects.get(id= pk)
+    # review = request.POST.get('review_text')
+    # image = request.FILES.get('image')
+    # book.review_set.create(review_text=review, userprofile = request.user.userprofile)
+
+    # if image:
+    #     fs = FileSystemStorage()
+    #     name= fs.save(image.name, image)
+    #     book.review_set.create(review_text=review, userprofile = request.user.userprofile,image = fs.url(name))
+    # return redirect(f'/book/{pk}/detail')
     
 
 def author(request,author):

@@ -30,9 +30,7 @@ class Review(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     userprofile = models.ForeignKey(UserProfile ,on_delete=models.CASCADE)
     review_date = models.DateTimeField(auto_now=True)
+    image = models.ImageField(upload_to='Book/images', null= True)
 
     def __str__(self):
         return self.review_text
-
-    def get_absolute_url(self):
-        return reverse('books:book_detail', args=[str(self.id)])
