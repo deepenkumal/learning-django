@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Profile pages {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row mt-2">
+        <h3>Profile</h3>
+        <div class="col-md-6 col-sm-12 offset-md-3 mt-5">
+            {{request.user.userprofile}}
+        </div>
+    </div>
+</div>
+{% endblock content %}

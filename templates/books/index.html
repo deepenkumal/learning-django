@@ -4,9 +4,9 @@
 <div class="container">
     <h3 class="text-center mt-5 ">Books</h3>
     <div class="row mt-2">
-        {% for book in books %}
+        {% for book in book_list %}
         <div class="col-md-3 col-sm-12 mt-5">
-            <img class="w-100" src="{{book.image}}" alt="">
+            <img class="w-100" src="{{book.book_image.url}}" alt="">
             <strong>Title</strong>
             <p>{{book.title}}
             <p>
@@ -21,16 +21,16 @@
     <div class="row mt-5 mb-5">
         <div class="col-md-4 offset-md-4">
             
-            {% if books.has_previous %}
+            {% if page_obj.has_previous %}
                 <a href="?page=1" class="btn btn-primary">first</a>
-                <a href="?page={{books.previous_page_number}}" class="btn btn-link">previous</a>
+                <a href="?page={{page_obj.previous_page_number}}" class="btn btn-link">previous</a>
 
             {% endif %}
-            <button class="btn btn-default" disabled>{{books.number}} of {{books.paginator.num_pages}} pages</button>
+            <button class="btn btn-default" disabled>{{page_obj.number}} of {{page_obj.paginator.num_pages}} pages</button>
             
-            {% if books.has_next %}
-            <a class="btn btn-link" href="?page={{books.next_page_number}}">next</a>
-            <a class="btn btn-primary" href="?page={{ books.paginator.num_pages }}">last</a>
+            {% if page_obj.has_next %}
+            <a class="btn btn-link" href="?page={{page_obj.next_page_number}}">next</a>
+            <a class="btn btn-primary" href="?page={{ page_obj.paginator.num_pages }}">last</a>
             {% endif %}
         </div>
     </div>

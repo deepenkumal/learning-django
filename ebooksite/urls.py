@@ -16,9 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
+from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('books.urls')),
     path('', include('users.urls')),
-]
+    path('login/',auth_views.LoginView.as_view(template_name = 'users/login.html',redirect_authenticated_user = True), name='login'),
+    path('logout/',auth_views.LogoutView.as_view(), name='logout'),
+    path('password_reset/',auth_views.PasswordResetView.as_view(),name='password_reset'),
+
+    path('password_reset/done',auth_views.PasswordResetDoneView.as_view(),name='password_reset_done'),
+
+    path('reset/<uidb64>/<token>',auth_views.PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
+
+    path('reset/complete/',auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
+    #path('accounts/',include('django.contrib.auth.urls')),
+
+]+static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
